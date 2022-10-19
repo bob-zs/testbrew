@@ -7,10 +7,6 @@ const TestingPrompt = db.define('testingPrompt', {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  orderNum: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-  },
   narrative: {
     type: Sequelize.TEXT,
   },
