@@ -130,8 +130,8 @@ export const Editor = (props) => {
   ]; // easier to read and input, would be helpful for a future admin test editor
   const getReadOnlyRangesForEditor = (readOnlyRanges, editor) => {
     return readOnlyRanges.map((range) => ({
-      from: editor.doc.line(range[0]).from,
-      to: editor.doc.line(range[1]).from,
+      from: editor?.doc.line(range[0]).from,
+      to: editor?.doc.line(range[1]).from,
     }));
   };
   // const _getReadOnlyRanges = (editor) => {
@@ -481,3 +481,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);
+// export default Editor;
