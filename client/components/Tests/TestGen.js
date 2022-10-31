@@ -127,17 +127,24 @@ export const Editor = (props) => {
     setCode(v.state.doc.toString());
   });
 
-  const getReadOnlyRanges = (editor) => {
-    return [
-      {
-        from: editor.doc.line(1).from,
-        to: editor.doc.line(2).to,
-      },
-      {
-        from: editor.doc.line(4).from,
-        to: editor.doc.line(5).to,
-      },
-    ];
+  const readOnlyRanges = [
+    [1, 2],
+    [4, 5],
+  ];
+
+  const dynamicReadOnlyRanges = (ranges) => {
+    return (editor) => {
+      const theRanges = ranges.map((range) => {
+        const fromLine = range[0];
+        const toLine = range[1];
+        return {
+          from: editor.doc.line(fromLine).from,
+          to: editor.doc.line(toLine).to,
+        };
+      });
+
+      return theRanges;
+    };
   };
 
   useEffect(() => {
@@ -174,7 +181,7 @@ export const Editor = (props) => {
         javascript(),
         onUpdate,
         EditorView.lineWrapping,
-        readOnlyRangesExtension(getReadOnlyRanges),
+        readOnlyRangesExtension(dynamicReadOnlyRanges(readOnlyRanges)),
         autocompletion({ override: [myCompletions] }),
       ],
     });
