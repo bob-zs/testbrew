@@ -41,9 +41,12 @@ export const Editor = (props) => {
   const [passedTest, setPassedTest] = useState('false');
   const [response, setResponse] = useState('See your results here!');
   const { singlePrompt } = props;
+  const { prompts } = props;
 
   const templateTest = singlePrompt.templateTest;
   const narrative = singlePrompt.narrative;
+  const jsCode = singlePrompt.jsCode;
+
   const completions = [
     { label: 'toBe', type: 'keyword' },
     { label: 'expect', type: 'keyword' },
@@ -105,6 +108,7 @@ export const Editor = (props) => {
     const view2 = new EditorView({
       state,
       parent: editor2.current,
+      lineWrapping: true,
     });
 
     const fetchStuff = async () => {
@@ -123,33 +127,18 @@ export const Editor = (props) => {
     setCode(v.state.doc.toString());
   });
 
-  const readOnlyRanges = [
-    [1, 2],
-    [4, 6],
-    [8, 11],
-  ]; // easier to read and input, would be helpful for a future admin test editor
-  const getReadOnlyRangesForEditor = (readOnlyRanges, editor) => {
-    return readOnlyRanges.map((range) => ({
-      from: editor?.doc.line(range[0]).from,
-      to: editor?.doc.line(range[1]).from,
-    }));
+  const getReadOnlyRanges = (editor) => {
+    return [
+      {
+        from: editor.doc.line(1).from,
+        to: editor.doc.line(2).to,
+      },
+      {
+        from: editor.doc.line(4).from,
+        to: editor.doc.line(5).to,
+      },
+    ];
   };
-  // const _getReadOnlyRanges = (editor) => {
-  //   return [
-  //     {
-  //       from: editor.doc.line(1).from,
-  //       to: editor.doc.line(2).to,
-  //     },
-  //     {
-  //       from: editor.doc.line(4).from,
-  //       to: editor.doc.line(6).to,
-  //     },
-  //     {
-  //       from: editor.doc.line(8).from,
-  //       to: editor.doc.line(11).to,
-  //     },
-  //   ];
-  // };
 
   useEffect(() => {
     const addMarks = StateEffect.define();
@@ -185,7 +174,7 @@ export const Editor = (props) => {
         javascript(),
         onUpdate,
         EditorView.lineWrapping,
-        readOnlyRangesExtension(getReadOnlyRangesForEditor(readOnlyRanges)),
+        readOnlyRangesExtension(getReadOnlyRanges),
         autocompletion({ override: [myCompletions] }),
       ],
     });
@@ -196,10 +185,8 @@ export const Editor = (props) => {
     });
     view.dispatch({
       effects: addMarks.of([
-        strikeMark.range(137, 150),
-        strikeMark.range(159, 172),
-        strikeMark.range(278, 291),
-        strikeMark.range(300, 313),
+        strikeMark.range(109, 122),
+        strikeMark.range(131, 144),
       ]),
     });
 
@@ -236,10 +223,11 @@ export const Editor = (props) => {
     if (passedTest === 'true') {
       setId(uuidv4());
       axios
-        .post('/api/jestTests/jest3/results', {
+        .post('/api/submitTest', {
           code,
           id,
           passedTest,
+          jsCode,
         })
         .then((res) => {
           setPassedTest('false');
@@ -251,9 +239,14 @@ export const Editor = (props) => {
   };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [jsModalIsOpen, jsIsOpen] = React.useState(false);
 
-  function openModal() {
+  function openSolutionModal() {
     setIsOpen(true);
+  }
+
+  function openJSCodeModal() {
+    jsIsOpen(true);
   }
 
   function afterOpenModal() {
@@ -263,6 +256,7 @@ export const Editor = (props) => {
 
   function closeModal() {
     setIsOpen(false);
+    jsIsOpen(false);
   }
 
   Modal.setAppElement('#app');
@@ -300,10 +294,49 @@ export const Editor = (props) => {
             </button>
           </div>
           <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {singlePrompt.solution}
+            {prompts[0]?.solution}
           </div>
         </div>
       </Modal>
+
+      <Modal
+        isOpen={jsModalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(255,255,255,0.1',
+            backdropFilter: 'blur(8px)',
+          },
+        }}
+        contentLabel='Example Modal'
+        className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
+        <div>
+          <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
+            <h2 className='text-2xl'>
+              JavaScript Code Your Unit Test Will Run Against
+            </h2>
+            <button onClick={closeModal}>
+              <svg
+                width='32'
+                height='32'
+                viewBox='0 0 16 16'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'>
+                <rect width='16' height='16' fill='none' />
+                <path
+                  d='M12 4.7L11.3 4L8 7.3L4.7 4L4 4.7L7.3 8L4 11.3L4.7 12L8 8.7L11.3 12L12 11.3L8.7 8L12 4.7Z'
+                  fill='#a3e635'
+                />
+              </svg>
+            </button>
+          </div>
+          <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
+            {jsCode}
+          </div>
+        </div>
+      </Modal>
+
       <div className='flex h-3/4 w-full'>
         <div
           id='left-column'
@@ -372,7 +405,7 @@ export const Editor = (props) => {
               id='prompt'
               className='scrollbar grow overflow-y-auto bg-slate-900 px-8 py-4 text-lg text-slate-200'>
               <div className='max-w-[800px] leading-7'>
-                {singlePrompt.prompt}
+                {prompts[0]?.prompt}
               </div>
             </div>
           </div>
@@ -417,14 +450,19 @@ export const Editor = (props) => {
               Evaluate Test
             </button>
             <button
-              className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2 text-sm  text-slate-900 transition-shadow 2xl:text-base'
+              className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
               onClick={runTest}>
               Submit Test
             </button>
             <button
-              className='self-center  py-2  text-sm text-lime-400 transition-shadow 2xl:text-base'
-              onClick={openModal}>
+              className='self-center rounded-lg border border-lime-400 px-4 py-2 text-sm text-lime-400 transition-all hover:bg-lime-400/10 2xl:text-base'
+              onClick={openSolutionModal}>
               Show Solution
+            </button>
+            <button
+              className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
+              onClick={openJSCodeModal}>
+              Show JavaScript Code
             </button>
           </div>
         </div>
@@ -481,4 +519,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);
-// export default Editor;
