@@ -25,6 +25,9 @@ const TestingPrompt = db.define('testingPrompt', {
   orderNum: {
     type: Sequelize.INTEGER,
   },
+  readOnlyRanges: {
+    type: Sequelize.ARRAY(Sequelize.JSON(Sequelize.INTEGER)),
+  },
 });
 
 module.exports = TestingPrompt;

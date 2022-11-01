@@ -22,6 +22,10 @@ async function seed() {
   // Creating Prompts
   const prompts = await Promise.all([
     TestingPrompt.create({
+      readOnlyRanges: [
+        { from: 1, to: 2 },
+        { from: 4, to: 5 },
+      ],
       orderNum: 10,
       narrative: `Welcome to Exercise #1!
 
@@ -61,6 +65,10 @@ Now, take a look at the prompt and try to fill out the unit test:
   `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [
+        { from: 1, to: 2 },
+        { from: 5, to: 6 },
+      ],
       orderNum: 20,
       narrative: `Now, let’s examine the toEqual and the not.toBe matchers.
 
@@ -87,6 +95,11 @@ The not.toBe matcher will test for the opposite of a matcher.
     `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [
+        { from: 1, to: 2 },
+        { from: 4, to: 6 },
+        { from: 8, to: 11 },
+      ],
       orderNum: 30,
       narrative: `Let's use what we learned from the last two exercises and use the prompt to complete the following Unit Test:
       `,
@@ -117,6 +130,10 @@ The not.toBe matcher will test for the opposite of a matcher.
       });`,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [
+        { from: 1, to: 2 },
+        { from: 4, to: 5 },
+      ],
       orderNum: 40,
       narrative: `In tests, you sometimes need to distinguish between undefined, null, and false, but you sometimes do not want to treat these differently. Jest contains helpers that let you be explicit about what you want.
 
@@ -150,6 +167,10 @@ toBeFalsy matches anything that an if statement treats as false
   `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [
+        { from: 1, to: 2 },
+        { from: 4, to: 5 },
+      ],
       orderNum: 50,
       narrative: `We can also compare numbers using the following unique matchers:
 
@@ -185,6 +206,10 @@ Please use one of the matchers above to complete the following exercise:
       `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [
+        { from: 1, to: 5 },
+        { from: 7, to: 14 },
+      ],
       orderNum: 60,
       narrative: `You've probably noticed by now that we have used the function Describe over and over again.
 
@@ -243,6 +268,7 @@ describe('my lunch, () => {
   `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [{ from: 2, to: 6 }],
       orderNum: 70,
       narrative: `Now, let’s explore the test function.
 
@@ -277,6 +303,7 @@ In the exercise below, fill in the test method.
       `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [{ from: 4, to: 6 }],
       orderNum: 80,
       narrative: `Ok, now that we know the basics, let's try a more advanced exercise. 
       
@@ -303,6 +330,7 @@ Based on the prompt below, please fill in the describe, test, expect and toBe fu
       `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [{ from: 4, to: 6 }],
       orderNum: 90,
       narrative: `Let’s try another example:
 
@@ -337,6 +365,7 @@ Based on the prompt below, please fill in the describe, test, expect and toBe fu
       `,
     }),
     TestingPrompt.create({
+      readOnlyRanges: [{ from: 4, to: 5 }],
       orderNum: 100,
       narrative: `Last exercise!
 

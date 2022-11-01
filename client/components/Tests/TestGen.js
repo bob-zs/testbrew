@@ -32,11 +32,6 @@ let baseTheme = EditorView.theme({
   },
 });
 
-const readOnlyRanges = [
-  { from: 1, to: 2 },
-  { from: 4, to: 5 },
-];
-
 const dynamicReadOnlyRanges = (ranges) => {
   return (editor) => {
     const theRanges = ranges.map((range) => {
@@ -64,6 +59,7 @@ export const Editor = (props) => {
   const templateTest = singlePrompt.templateTest;
   const narrative = singlePrompt.narrative;
   const jsCode = singlePrompt.jsCode;
+  const readOnlyRanges = singlePrompt.readOnlyRanges;
 
   const completions = [
     { label: 'toBe', type: 'keyword' },
@@ -510,7 +506,8 @@ const mapStateToProps = (props, { match }) => {
   const promptIndex = match.params.promptIndex - 1;
   const { prompts } = props;
   const singlePrompt = prompts[promptIndex] || {};
-  console.log('prompts', promptIndex, prompts, singlePrompt);
+  // console.log('prompts', promptIndex, prompts, singlePrompt);
+  console.log(singlePrompt);
   return {
     prompts,
     singlePrompt,
