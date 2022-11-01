@@ -32,6 +32,24 @@ let baseTheme = EditorView.theme({
   },
 });
 
+const readOnlyRanges = [
+  { from: 1, to: 2 },
+  { from: 4, to: 5 },
+];
+
+const dynamicReadOnlyRanges = (ranges) => {
+  return (editor) => {
+    const theRanges = ranges.map((range) => {
+      return {
+        from: editor.doc.line(range.from).from,
+        to: editor.doc.line(range.to).to,
+      };
+    });
+
+    return theRanges;
+  };
+};
+
 export const Editor = (props) => {
   const editor = useRef();
   const editor2 = useRef();
@@ -126,26 +144,6 @@ export const Editor = (props) => {
   const onUpdate = EditorView.updateListener.of((v) => {
     setCode(v.state.doc.toString());
   });
-
-  const readOnlyRanges = [
-    [1, 2],
-    [4, 5],
-  ];
-
-  const dynamicReadOnlyRanges = (ranges) => {
-    return (editor) => {
-      const theRanges = ranges.map((range) => {
-        const fromLine = range[0];
-        const toLine = range[1];
-        return {
-          from: editor.doc.line(fromLine).from,
-          to: editor.doc.line(toLine).to,
-        };
-      });
-
-      return theRanges;
-    };
-  };
 
   useEffect(() => {
     const addMarks = StateEffect.define();
