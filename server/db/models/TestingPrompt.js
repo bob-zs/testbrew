@@ -28,6 +28,9 @@ const TestingPrompt = db.define('testingPrompt', {
   readOnlyRanges: {
     type: Sequelize.ARRAY(Sequelize.JSON(Sequelize.INTEGER)),
   },
+  strikeMarkRanges: {
+    type: Sequelize.ARRAY(Sequelize.JSON(Sequelize.INTEGER)),
+  },
 });
 
 module.exports = TestingPrompt;

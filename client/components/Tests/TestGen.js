@@ -66,7 +66,8 @@ export const Editor = (props) => {
   const templateTest = singlePrompt.templateTest;
   const narrative = singlePrompt.narrative;
   const jsCode = singlePrompt.jsCode;
-  const readOnlyRanges = singlePrompt.readOnlyRanges;
+  const readOnlyRangesProp = singlePrompt.readOnlyRanges;
+  const strikeMarkRanges = singlePrompt.strikeMarkRanges;
 
   const completions = [
     { label: 'toBe', type: 'keyword' },
@@ -182,7 +183,7 @@ export const Editor = (props) => {
         javascript(),
         onUpdate,
         EditorView.lineWrapping,
-        readOnlyRangesExtension(dynamicReadOnlyRanges(readOnlyRanges)),
+        readOnlyRangesExtension(dynamicReadOnlyRanges(readOnlyRangesProp)),
         autocompletion({ override: [myCompletions] }),
       ],
     });
@@ -191,11 +192,12 @@ export const Editor = (props) => {
     const strikeMark = Decoration.mark({
       attributes: { style: 'background: #3730a3' },
     });
+
+    const strikeMarkArray = strikeMarkRanges?.map((range) => {
+      return strikeMark.range(range.start, range.end);
+    });
     view.dispatch({
-      effects: addMarks.of([
-        strikeMark.range(109, 122),
-        strikeMark.range(131, 144),
-      ]),
+      effects: addMarks.of(strikeMarkArray),
     });
 
     const fetchStuff = async () => {

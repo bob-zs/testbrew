@@ -22,6 +22,10 @@ async function seed() {
   // Creating Prompts
   const prompts = await Promise.all([
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 109, end: 122 },
+        { start: 131, end: 144 },
+      ],
       readOnlyRanges: [
         { from: 1, to: 2 },
         { from: 4, to: 5 },
@@ -65,6 +69,12 @@ Now, take a look at the prompt and try to fill out the unit test:
   `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 90, end: 103 },
+        { start: 115, end: 129 },
+        { start: 147, end: 160 },
+        { start: 173, end: 186 },
+      ],
       readOnlyRanges: [
         { from: 1, to: 2 },
         { from: 5, to: 6 },
@@ -95,6 +105,12 @@ The not.toBe matcher will test for the opposite of a matcher.
     `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 137, end: 150 },
+        { start: 159, end: 172 },
+        { start: 278, end: 291 },
+        { start: 300, end: 313 },
+      ],
       readOnlyRanges: [
         { from: 1, to: 2 },
         { from: 4, to: 6 },
@@ -130,6 +146,7 @@ The not.toBe matcher will test for the opposite of a matcher.
       });`,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [{ start: 110, end: 123 }],
       readOnlyRanges: [
         { from: 1, to: 2 },
         { from: 4, to: 5 },
@@ -167,6 +184,10 @@ toBeFalsy matches anything that an if statement treats as false
   `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 109, end: 122 },
+        { start: 146, end: 159 },
+      ],
       readOnlyRanges: [
         { from: 1, to: 2 },
         { from: 4, to: 5 },
@@ -206,6 +227,7 @@ Please use one of the matchers above to complete the following exercise:
       `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [{ start: 98, end: 111 }],
       readOnlyRanges: [
         { from: 1, to: 5 },
         { from: 7, to: 14 },
@@ -268,6 +290,7 @@ describe('my lunch, () => {
   `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [{ start: 6, end: 19 }],
       readOnlyRanges: [{ from: 2, to: 6 }],
       orderNum: 70,
       narrative: `Now, let’s explore the test function.
@@ -303,6 +326,11 @@ In the exercise below, fill in the test method.
       `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 11, end: 24 },
+        { start: 50, end: 63 },
+        { start: 95, end: 108 },
+      ],
       readOnlyRanges: [{ from: 4, to: 6 }],
       orderNum: 80,
       narrative: `Ok, now that we know the basics, let's try a more advanced exercise. 
@@ -330,6 +358,12 @@ Based on the prompt below, please fill in the describe, test, expect and toBe fu
       `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 11, end: 24 },
+        { start: 51, end: 64 },
+        { start: 96, end: 109 },
+        { start: 119, end: 132 },
+      ],
       readOnlyRanges: [{ from: 4, to: 6 }],
       orderNum: 90,
       narrative: `Let’s try another example:
@@ -365,6 +399,12 @@ Based on the prompt below, please fill in the describe, test, expect and toBe fu
       `,
     }),
     TestingPrompt.create({
+      strikeMarkRanges: [
+        { start: 12, end: 25 },
+        { start: 52, end: 65 },
+        { start: 97, end: 110 },
+        { start: 119, end: 132 },
+      ],
       readOnlyRanges: [{ from: 4, to: 5 }],
       orderNum: 100,
       narrative: `Last exercise!
