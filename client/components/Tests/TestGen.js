@@ -60,14 +60,13 @@ export const Editor = (props) => {
   const [id, setId] = useState(uuidv4());
   const [passedTest, setPassedTest] = useState('false');
   const [response, setResponse] = useState('See your results here!');
-  const { singlePrompt } = props;
-  const { prompts } = props;
+  const { currentPrompt } = props;
 
-  const templateTest = singlePrompt.templateTest;
-  const narrative = singlePrompt.narrative;
-  const jsCode = singlePrompt.jsCode;
-  const readOnlyRangesProp = singlePrompt.readOnlyRanges;
-  const strikeMarkRanges = singlePrompt.strikeMarkRanges;
+  const templateTest = currentPrompt.templateTest;
+  const narrative = currentPrompt.narrative;
+  const jsCode = currentPrompt.jsCode;
+  const readOnlyRangesProp = currentPrompt.readOnlyRanges;
+  const strikeMarkRanges = currentPrompt.strikeMarkRanges;
 
   const completions = [
     { label: 'toBe', type: 'keyword' },
@@ -291,7 +290,7 @@ export const Editor = (props) => {
             <CloseIcon onClick={closeModal} />
           </div>
           <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {prompts[0]?.solution}
+            {currentPrompt.solution}
           </div>
         </div>
       </Modal>
@@ -348,7 +347,7 @@ export const Editor = (props) => {
               id='prompt'
               className='scrollbar grow overflow-y-auto bg-slate-900 px-8 py-4 text-lg text-slate-200'>
               <div className='max-w-[800px] leading-7'>
-                {prompts[0]?.prompt}
+                {currentPrompt.prompt}
               </div>
             </div>
           </div>
@@ -413,12 +412,9 @@ export const Editor = (props) => {
 const mapStateToProps = (props, { match }) => {
   const promptIndex = match.params.promptIndex - 1;
   const { prompts } = props;
-  const singlePrompt = prompts[promptIndex] || {};
-  // console.log('prompts', promptIndex, prompts, singlePrompt);
-  console.log(singlePrompt);
+  const currentPrompt = prompts[promptIndex] || {};
   return {
-    prompts,
-    singlePrompt,
+    currentPrompt,
   };
 };
 
