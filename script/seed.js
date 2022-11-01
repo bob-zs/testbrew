@@ -71,7 +71,7 @@ Now, take a look at the prompt and try to fill out the unit test:
     TestingPrompt.create({
       strikeMarkRanges: [
         { start: 90, end: 103 },
-        { start: 115, end: 129 },
+        { start: 115, end: 128 },
         { start: 147, end: 160 },
         { start: 173, end: 186 },
       ],
