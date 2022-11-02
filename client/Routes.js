@@ -5,7 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 
 import { me } from './store';
-import PaginatedTests from './components/Tests';
+import DeprecatedPaginatedTests from './components/DeprecatedPaginatedTests';
 import TestGen from './components/Tests/TestGen';
 // import PaginatedTests from './components/Tests';
 
@@ -25,7 +25,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/jest' exact component={PaginatedTests} />
+            <Route path='/jest' exact component={DeprecatedPaginatedTests} />
             {/* TODO: change this to a better route name */}
             <Route path='/dynamic/:id' exact component={TestGen} />
             <Route path='/dynamic/:promptIndex' component={TestGen} />
@@ -35,7 +35,7 @@ class Routes extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route path='/jest' exact component={PaginatedTests} />
+            <Route path='/jest' exact component={DeprecatedPaginatedTests} />
           </Switch>
         )}
       </div>
