@@ -1,28 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Test1 from './Test1';
-import Test2 from './Test2';
-import Test3 from './Test3';
-import Test4 from './Test4';
-import Test5 from './Test5';
-import Test6 from './Test6';
-import Test7 from './Test7';
-import Test8 from './Test8';
-import Test9 from './Test9';
-import Test10 from './Test10';
-
-const AllTests = [
-  Test1,
-  Test2,
-  Test3,
-  Test4,
-  Test5,
-  Test6,
-  Test7,
-  Test8,
-  Test9,
-  Test10,
-];
 
 const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
   const [currentTestIx, setCurrentTestIx] = useState(
@@ -103,7 +80,7 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
         })}
         <button
           onClick={onNext}
-          disabled={currentTestIx === AllTests.length - 1}
+          disabled={currentTestIx === prompts.length - 1}
           className='group ml-4 flex items-center gap-3 text-lg text-lime-400 transition-all hover:text-lime-600  disabled:text-slate-700'>
           Next
           <svg
