@@ -35,13 +35,15 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
       <div
         className='flex max-h-[7vh] items-center justify-center gap-4 p-8'
         style={{}}>
-        <button
-          onClick={onPrevious}
-          disabled={currentTestIx === 0}
-          className='group mr-4 flex items-center gap-3 text-lime-400 hover:text-lime-600  disabled:text-slate-700'>
-          <PreviousArrowIcon />
-          Previous
-        </button>
+        <Link to={`/dynamic/${currentTestIx - 1}`}>
+          <button
+            onClick={onPrevious}
+            disabled={currentTestIx === 0}
+            className='group mr-4 flex items-center gap-3 text-lime-400 hover:text-lime-600  disabled:text-slate-700'>
+            <PreviousArrowIcon />
+            Previous
+          </button>
+        </Link>
         {prompts.map((_test, ix) => {
           return (
             <span
@@ -53,13 +55,15 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
             </span>
           );
         })}
-        <button
-          onClick={onNext}
-          disabled={currentTestIx === prompts.length - 1}
-          className='group ml-4 flex items-center gap-3 text-lg text-lime-400 transition-all hover:text-lime-600  disabled:text-slate-700'>
-          Next
-          <NextArrowIcon />
-        </button>
+        <Link to={`/dynamic/${currentTestIx + 1}`}>
+          <button
+            onClick={onNext}
+            disabled={currentTestIx === prompts.length - 1}
+            className='group ml-4 flex items-center gap-3 text-lg text-lime-400 transition-all hover:text-lime-600  disabled:text-slate-700'>
+            Next
+            <NextArrowIcon />
+          </button>
+        </Link>
       </div>
     </div>
   );
@@ -68,7 +72,8 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
 // Get number of prompts from local storage
 
 // export default PaginatedTests;
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { match }) => {
+  console.log('match', match);
   return {
     prompts: state.prompts,
   };

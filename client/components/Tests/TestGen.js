@@ -417,6 +417,8 @@ const mapStateToProps = (props, { match }) => {
   const currentPrompt = prompts[promptIndex] || {};
   return {
     currentPrompt,
+    prompts,
+    promptIndex,
   };
 };
 
