@@ -2,8 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { NextArrowIcon, PreviousArrowIcon } from '../SVG_Icons';
 import { Link } from 'react-router-dom';
+import TestGen from './TestGen';
 
-const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
+const Overlay = () => {
+  // Overlay blocking access on screens smaller than 768px
+  return (
+    <div className='absolute top-0 z-10 flex h-full w-full items-center justify-center bg-slate-900 md:hidden'>
+      Please use a desktop browser to continue learning
+    </div>
+  );
+};
+
+const PaginatedTests = ({ prompts }) => {
   const [currentTestIx, setCurrentTestIx] = useState(
     window.localStorage.index * 1 || 0,
   );
@@ -26,12 +36,8 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
 
   return (
     <div className='top-0 mt-[-74px] flex h-screen max-h-screen flex-col justify-between overflow-hidden pt-[70px]'>
-      {/* Overlay blocking access on screens smaller than 768px */}
-      <div className='absolute top-0 z-10 flex h-full w-full items-center justify-center bg-slate-900 md:hidden'>
-        Please use a desktop browser to continue learning
-      </div>
-      {/* End of overlay */}
-      {TestingChildComponent}
+      <Overlay />
+      <TestGen test={prompts[currentTestIx]} />
       <div
         className='flex max-h-[7vh] items-center justify-center gap-4 p-8'
         style={{}}>
@@ -72,8 +78,8 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
 // Get number of prompts from local storage
 
 // export default PaginatedTests;
-const mapStateToProps = (state, { match }) => {
-  console.log('match', match);
+const mapStateToProps = (state, props) => {
+  console.log('props', props);
   return {
     prompts: state.prompts,
   };
