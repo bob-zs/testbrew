@@ -5,9 +5,8 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 
 import { me } from './store';
-import DeprecatedPaginatedTests from './components/DeprecatedPaginatedTests';
-import TestGen from './components/Tests/TestGen';
-// import PaginatedTests from './components/Tests';
+import DeprecatedPaginatedTests from './components/Tests/DeprecatedPaginatedTests';
+import Pagination from './components/Tests/Pagination';
 
 /**
  * COMPONENT
@@ -27,8 +26,8 @@ class Routes extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/jest' exact component={DeprecatedPaginatedTests} />
             {/* TODO: change this to a better route name */}
-            <Route path='/dynamic/:id' exact component={TestGen} />
-            <Route path='/dynamic/:promptIndex' component={TestGen} />
+            <Route path='/dynamic/:id' exact component={Pagination} />
+            <Route path='/dynamic/:promptIndex' component={Pagination} />
           </Switch>
         ) : (
           <Switch>
