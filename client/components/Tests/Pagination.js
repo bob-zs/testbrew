@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { NextArrowIcon, PreviousArrowIcon } from '../SVG_Icons';
+import { Link } from 'react-router-dom';
 
 const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
   const [currentTestIx, setCurrentTestIx] = useState(
@@ -12,9 +14,6 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
     setCurrentTestIx((ix) => ix - 1);
   };
 
-  const onNumber = (ix) => {
-    setCurrentTestIx(ix);
-  };
   // console.log(CurrentTest);
 
   const styleOnCurrent = (ix) =>
@@ -40,41 +39,17 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
           onClick={onPrevious}
           disabled={currentTestIx === 0}
           className='group mr-4 flex items-center gap-3 text-lime-400 hover:text-lime-600  disabled:text-slate-700'>
-          <svg
-            // className='transition-all group-hover:ml-4'
-            width='17'
-            height='18'
-            viewBox='0 0 17 18'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            className='rotate-180'>
-            <path
-              d='M1.48022 8.87939H14.5'
-              stroke='#a3e635'
-              strokeWidth='2'
-              strokeLinecap='square'
-              strokeLinejoin='round'
-              className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
-            />
-            <path
-              d='M8.48022 1.87939L15.4802 8.87939L8.48022 15.8794'
-              stroke='#a3e635'
-              strokeWidth='2'
-              strokeLinecap='square'
-              className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
-            />
-          </svg>
+          <PreviousArrowIcon />
           Previous
         </button>
         {prompts.map((_test, ix) => {
           return (
             <span
               key={ix}
-              onClick={() => onNumber(ix)}
               className={`${styleOnCurrent(
                 ix,
               )}  flex h-8 w-8 cursor-pointer items-center justify-center self-center rounded-lg transition-all hover:bg-slate-600`}>
-              {`  ${ix + 1}  `}
+              <Link to={`/dynamic/${ix + 1}`}>{`  ${ix + 1}  `}</Link>
             </span>
           );
         })}
@@ -83,30 +58,7 @@ const PaginatedTests = ({ children: TestingChildComponent, prompts }) => {
           disabled={currentTestIx === prompts.length - 1}
           className='group ml-4 flex items-center gap-3 text-lg text-lime-400 transition-all hover:text-lime-600  disabled:text-slate-700'>
           Next
-          <svg
-            // className='transition-all group-hover:ml-4'
-            width='17'
-            height='18'
-            viewBox='0 0 17 18'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            className=''>
-            <path
-              d='M1.48022 8.87939H14.5'
-              stroke='#a3e635'
-              strokeWidth='2'
-              strokeLinecap='square'
-              strokeLinejoin='round'
-              className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
-            />
-            <path
-              d='M8.48022 1.87939L15.4802 8.87939L8.48022 15.8794'
-              stroke='#a3e635'
-              strokeWidth='2'
-              strokeLinecap='square'
-              className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
-            />
-          </svg>
+          <NextArrowIcon />
         </button>
       </div>
     </div>

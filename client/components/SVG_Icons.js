@@ -111,3 +111,61 @@ export const ConsoleIcon = () => {
     </svg>
   );
 };
+
+export const PreviousArrowIcon = () => {
+  return (
+    <svg
+      // className='transition-all group-hover:ml-4'
+      width='17'
+      height='18'
+      viewBox='0 0 17 18'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      className='rotate-180'>
+      <path
+        d='M1.48022 8.87939H14.5'
+        stroke='#a3e635'
+        strokeWidth='2'
+        strokeLinecap='square'
+        strokeLinejoin='round'
+        className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
+      />
+      <path
+        d='M8.48022 1.87939L15.4802 8.87939L8.48022 15.8794'
+        stroke='#a3e635'
+        strokeWidth='2'
+        strokeLinecap='square'
+        className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
+      />
+    </svg>
+  );
+};
+
+export const NextArrowIcon = () => {
+  return (
+    <svg
+      // className='transition-all group-hover:ml-4'
+      width='17'
+      height='18'
+      viewBox='0 0 17 18'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      className=''>
+      <path
+        d='M1.48022 8.87939H14.5'
+        stroke='#a3e635'
+        strokeWidth='2'
+        strokeLinecap='square'
+        strokeLinejoin='round'
+        className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
+      />
+      <path
+        d='M8.48022 1.87939L15.4802 8.87939L8.48022 15.8794'
+        stroke='#a3e635'
+        strokeWidth='2'
+        strokeLinecap='square'
+        className='group-hover:stroke-lime-600 group-disabled:stroke-slate-700'
+      />
+    </svg>
+  );
+};
