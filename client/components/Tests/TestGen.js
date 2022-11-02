@@ -21,6 +21,7 @@ import {
   CodeEditorIcon,
   ConsoleIcon,
 } from '../SVG_Icons';
+import Pagination from './Pagination';
 
 const turnOffCtrlS = () => {
   document.addEventListener('keydown', (e) => {
@@ -271,141 +272,142 @@ export const Editor = (props) => {
   Modal.setAppElement('#app');
 
   return (
-    <div className='flex h-[93vh] max-h-[93vh] w-full grow flex-col overflow-hidden bg-slate-900'>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(255,255,255,0.1',
-            backdropFilter: 'blur(8px)',
-          },
-        }}
-        contentLabel='Example Modal'
-        className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
-        <div>
-          <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
-            <h2 className='text-2xl'>Solution Code</h2>
-            <CloseIcon onClick={closeModal} />
+    <Pagination>
+      <div className='flex h-[93vh] max-h-[93vh] w-full grow flex-col overflow-hidden bg-slate-900'>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(255,255,255,0.1',
+              backdropFilter: 'blur(8px)',
+            },
+          }}
+          contentLabel='Example Modal'
+          className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
+          <div>
+            <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
+              <h2 className='text-2xl'>Solution Code</h2>
+              <CloseIcon onClick={closeModal} />
+            </div>
+            <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
+              {currentPrompt.solution}
+            </div>
           </div>
-          <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {currentPrompt.solution}
+        </Modal>
+        <Modal
+          isOpen={jsModalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(255,255,255,0.1',
+              backdropFilter: 'blur(8px)',
+            },
+          }}
+          contentLabel='Example Modal'
+          className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
+          <div>
+            <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
+              <h2 className='text-2xl'>
+                JavaScript Code Your Unit Test Will Run Against
+              </h2>
+              <CloseIcon onClick={closeModal} />
+            </div>
+            <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
+              {jsCode}
+            </div>
           </div>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={jsModalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(255,255,255,0.1',
-            backdropFilter: 'blur(8px)',
-          },
-        }}
-        contentLabel='Example Modal'
-        className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
-        <div>
-          <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
-            <h2 className='text-2xl'>
-              JavaScript Code Your Unit Test Will Run Against
-            </h2>
-            <CloseIcon onClick={closeModal} />
-          </div>
-          <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {jsCode}
-          </div>
-        </div>
-      </Modal>
-
-      <div className='flex h-3/4 w-full'>
-        <div
-          id='left-column'
-          className='flex w-1/2 flex-col overflow-hidden border-r border-slate-700'>
-          <div className='flex gap-3 border-b border-slate-700 px-8 pt-4 pb-3 text-slate-400'>
-            <InstructionsIcon />
-            Instructions
-          </div>
+        </Modal>
+        <div className='flex h-3/4 w-full'>
           <div
-            id='instructions-editor'
-            className='scrollbar overflow-y-auto bg-[#090e1a]'
-            style={{ height: '100%' }}
-            ref={editor2}></div>
-        </div>
-
-        <div id='right-column' className='relative flex h-full w-1/2 flex-col'>
-          <div
-            id='prompt-container'
-            className='flex max-h-[40%] min-h-[30%] shrink-0 flex-col overflow-hidden'>
-            <div className='flex gap-3 border-b border-slate-700 bg-slate-900 px-6 pt-4 pb-3 text-slate-400'>
-              <PromptIcon />
-              Prompt
+            id='left-column'
+            className='flex w-1/2 flex-col overflow-hidden border-r border-slate-700'>
+            <div className='flex gap-3 border-b border-slate-700 px-8 pt-4 pb-3 text-slate-400'>
+              <InstructionsIcon />
+              Instructions
             </div>
             <div
-              id='prompt'
-              className='scrollbar grow overflow-y-auto bg-slate-900 px-8 py-4 text-lg text-slate-200'>
-              <div className='max-w-[800px] leading-7'>
-                {currentPrompt.prompt}
+              id='instructions-editor'
+              className='scrollbar overflow-y-auto bg-[#090e1a]'
+              style={{ height: '100%' }}
+              ref={editor2}></div>
+          </div>
+
+          <div
+            id='right-column'
+            className='relative flex h-full w-1/2 flex-col'>
+            <div
+              id='prompt-container'
+              className='flex max-h-[40%] min-h-[30%] shrink-0 flex-col overflow-hidden'>
+              <div className='flex gap-3 border-b border-slate-700 bg-slate-900 px-6 pt-4 pb-3 text-slate-400'>
+                <PromptIcon />
+                Prompt
+              </div>
+              <div
+                id='prompt'
+                className='scrollbar grow overflow-y-auto bg-slate-900 px-8 py-4 text-lg text-slate-200'>
+                <div className='max-w-[800px] leading-7'>
+                  {currentPrompt.prompt}
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            id='your-code-container'
-            className='flex grow flex-col overflow-hidden'>
-            <div className='flex gap-3 border-y border-slate-700 bg-slate-900 py-3 px-6 text-slate-400'>
-              <CodeEditorIcon />
-              Your Test
-            </div>
-
             <div
-              id='your-editor'
-              className='scrollbar h-full grow overflow-y-auto overflow-x-hidden bg-[#090e1a]'
-              ref={editor}></div>
+              id='your-code-container'
+              className='flex grow flex-col overflow-hidden'>
+              <div className='flex gap-3 border-y border-slate-700 bg-slate-900 py-3 px-6 text-slate-400'>
+                <CodeEditorIcon />
+                Your Test
+              </div>
+
+              <div
+                id='your-editor'
+                className='scrollbar h-full grow overflow-y-auto overflow-x-hidden bg-[#090e1a]'
+                ref={editor}></div>
+            </div>
+            <div
+              id='button-container'
+              className='flex gap-6 border-t border-slate-700 py-4 px-6'>
+              <button
+                className='self-center rounded-lg border border-lime-400 px-4 py-2 text-sm text-lime-400 transition-all hover:bg-lime-400/10 2xl:text-base'
+                onClick={onSubmit}>
+                Evaluate Test
+              </button>
+              <button
+                className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
+                onClick={runTest}>
+                Submit Test
+              </button>
+              <button
+                className='self-center rounded-lg border border-lime-400 px-4 py-2 text-sm text-lime-400 transition-all hover:bg-lime-400/10 2xl:text-base'
+                onClick={openSolutionModal}>
+                Show Solution
+              </button>
+              <button
+                className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
+                onClick={openJSCodeModal}>
+                Show JavaScript Code
+              </button>
+            </div>
           </div>
-          <div
-            id='button-container'
-            className='flex gap-6 border-t border-slate-700 py-4 px-6'>
-            <button
-              className='self-center rounded-lg border border-lime-400 px-4 py-2 text-sm text-lime-400 transition-all hover:bg-lime-400/10 2xl:text-base'
-              onClick={onSubmit}>
-              Evaluate Test
-            </button>
-            <button
-              className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
-              onClick={runTest}>
-              Submit Test
-            </button>
-            <button
-              className='self-center rounded-lg border border-lime-400 px-4 py-2 text-sm text-lime-400 transition-all hover:bg-lime-400/10 2xl:text-base'
-              onClick={openSolutionModal}>
-              Show Solution
-            </button>
-            <button
-              className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
-              onClick={openJSCodeModal}>
-              Show JavaScript Code
-            </button>
+        </div>
+        <div
+          className='flex grow flex-col overflow-hidden border-b border-slate-700'
+          style={{}}>
+          <div className='flex items-center border-y border-slate-700 px-8 py-3 text-slate-400'>
+            <div className='flex items-center gap-3'>
+              <ConsoleIcon />
+              Results
+            </div>
+          </div>
+
+          <div className='scrollbar grow overflow-y-auto bg-[#090e1a] px-8 py-4 font-mono text-slate-200'>
+            {response}
           </div>
         </div>
       </div>
-
-      <div
-        className='flex grow flex-col overflow-hidden border-b border-slate-700'
-        style={{}}>
-        <div className='flex items-center border-y border-slate-700 px-8 py-3 text-slate-400'>
-          <div className='flex items-center gap-3'>
-            <ConsoleIcon />
-            Results
-          </div>
-        </div>
-
-        <div className='scrollbar grow overflow-y-auto bg-[#090e1a] px-8 py-4 font-mono text-slate-200'>
-          {response}
-        </div>
-      </div>
-    </div>
+    </Pagination>
   );
 };
 
