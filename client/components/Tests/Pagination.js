@@ -14,9 +14,10 @@ const Overlay = () => {
   );
 };
 
-const PaginatedTests = (state, props) => {
+const PaginatedTests = (props) => {
   // console.log('PAgeProp', props);
-  const prompts = state.prompts;
+  console.log('Props', props);
+  const prompts = props.prompts;
   // console.log('Paginated Props', props);
   const [currentTestIx, setCurrentTestIx] = useState(
     window.localStorage.index * 1 || 0,
