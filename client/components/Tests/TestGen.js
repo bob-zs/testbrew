@@ -9,7 +9,6 @@ import { javascript } from '@codemirror/lang-javascript';
 import { oneDark } from '@codemirror/theme-one-dark';
 import readOnlyRangesExtension from 'codemirror-readonly-ranges';
 import axios from 'axios';
-import { fetchPrompts } from '../../store/prompts';
 import { autocompletion } from '@codemirror/autocomplete';
 import { connect } from 'react-redux';
 const { v4: uuidv4 } = require('uuid');
@@ -132,11 +131,6 @@ export const Editor = (props) => {
       lineWrapping: true,
     });
 
-    const fetchStuff = async () => {
-      await props.fetchPrompts();
-    };
-    fetchStuff();
-
     return () => {
       view2.destroy();
     };
@@ -198,11 +192,6 @@ export const Editor = (props) => {
     view.dispatch({
       effects: addMarks.of(strikeMarkArray),
     });
-
-    const fetchStuff = async () => {
-      await props.fetchPrompts();
-    };
-    fetchStuff();
 
     return () => {
       view.destroy();
@@ -407,14 +396,7 @@ export const Editor = (props) => {
 };
 
 const mapStateToProps = (props) => {
-  // console.log('props', props);
   return props;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchPrompts: () => dispatch(fetchPrompts()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Editor);
+export default connect(mapStateToProps)(Editor);

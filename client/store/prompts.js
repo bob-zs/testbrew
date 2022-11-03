@@ -21,18 +21,4 @@ export const fetchPrompts = () => {
   };
 };
 
-// const callActions = (dispatch) => (res) => {
-//   dispatch({
-//     type: 'FETCH_DATA',
-//     payload: res.data,
-//   });
-//   setHadLoaded(res);
-// };
-
-// export const fetchPrompts = (dispatch) => () => {
-//   dispatch({ type: 'START_FETCH' });
-//   const p = axios.get('/api/prompts');
-//   Promise.all(p).then(callActions(dispatch));
-// };
-
 export default prompts;
