@@ -172,7 +172,7 @@ export const Editor = (props) => {
 
     turnOffCtrlS();
     const state = EditorState.create({
-      doc: code || templateTest,
+      doc: templateTest,
 
       extensions: [
         basicSetup,
