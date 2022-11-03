@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { NextArrowIcon, PreviousArrowIcon } from '../SVG_Icons';
+import { fetchPrompts } from '../../store/prompts';
 import { Link } from 'react-router-dom';
 import TestGen from './TestGen';
 
@@ -13,10 +14,14 @@ const Overlay = () => {
   );
 };
 
-const PaginatedTests = ({ prompts }) => {
+const PaginatedTests = (state, props) => {
+  // console.log('PAgeProp', props);
+  const prompts = state.prompts;
+  // console.log('Paginated Props', props);
   const [currentTestIx, setCurrentTestIx] = useState(
     window.localStorage.index * 1 || 0,
   );
+
   const onNext = () => {
     setCurrentTestIx((ix) => ix + 1);
   };
@@ -24,12 +29,11 @@ const PaginatedTests = ({ prompts }) => {
     setCurrentTestIx((ix) => ix - 1);
   };
 
-  // console.log(CurrentTest);
-
   const styleOnCurrent = (ix) =>
     ix === currentTestIx && 'bg-lime-400 text-slate-900 pointer-events-none';
 
   useEffect(() => {
+    props.fetchPrompts();
     window.localStorage.setItem('index', currentTestIx);
     // console.log(currentTestIx, window.localStorage.index * 1);
   }, [currentTestIx]);
@@ -37,7 +41,7 @@ const PaginatedTests = ({ prompts }) => {
   return (
     <div className='top-0 mt-[-74px] flex h-screen max-h-screen flex-col justify-between overflow-hidden pt-[70px]'>
       <Overlay />
-      <TestGen test={prompts[currentTestIx]} />
+      <TestGen currentPrompt={currentTestIx} />
       <div
         className='flex max-h-[7vh] items-center justify-center gap-4 p-8'
         style={{}}>
@@ -50,7 +54,7 @@ const PaginatedTests = ({ prompts }) => {
             Previous
           </button>
         </Link>
-        {prompts.map((_test, ix) => {
+        {prompts?.map((_test, ix) => {
           return (
             <span
               key={ix}
@@ -64,7 +68,7 @@ const PaginatedTests = ({ prompts }) => {
         <Link to={`/dynamic/${currentTestIx + 1}`}>
           <button
             onClick={onNext}
-            disabled={currentTestIx === prompts.length - 1}
+            disabled={currentTestIx === prompts?.length - 1}
             className='group ml-4 flex items-center gap-3 text-lg text-lime-400 transition-all hover:text-lime-600  disabled:text-slate-700'>
             Next
             <NextArrowIcon />
@@ -79,10 +83,16 @@ const PaginatedTests = ({ prompts }) => {
 
 // export default PaginatedTests;
 const mapStateToProps = (state, props) => {
-  console.log('props', props);
   return {
-    prompts: state.prompts,
+    state,
+    props,
   };
 };
 
-export default connect(mapStateToProps)(PaginatedTests);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPrompts: () => dispatch(fetchPrompts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaginatedTests);

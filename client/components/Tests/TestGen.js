@@ -53,6 +53,7 @@ const dynamicReadOnlyRanges = (ranges) => {
 };
 
 export const Editor = (props) => {
+  console.log('EditorProps', props);
   const editor = useRef();
   const editor2 = useRef();
   const [code, setCode] = useState('');
@@ -406,15 +407,9 @@ export const Editor = (props) => {
   );
 };
 
-const mapStateToProps = (props, { match }) => {
-  const promptIndex = match.params.promptIndex - 1;
-  const { prompts } = props;
-  const currentPrompt = prompts[promptIndex] || {};
-  return {
-    currentPrompt,
-    prompts,
-    promptIndex,
-  };
+const mapStateToProps = (props) => {
+  // console.log('props', props);
+  return props;
 };
 
 const mapDispatchToProps = (dispatch) => {
