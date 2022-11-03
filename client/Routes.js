@@ -26,7 +26,7 @@ class Routes extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/jest' exact component={DeprecatedPaginatedTests} />
             {/* TODO: change this to a better route name */}
-            <Route path='/dynamic/:id' exact component={Pagination} />
+            <Route path='/dynamic/:ix' exact component={Pagination} />
             {/* <Route path='/dynamic/:promptIndex' component={Pagination} /> */}
           </Switch>
         ) : (
