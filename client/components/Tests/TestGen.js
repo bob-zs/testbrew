@@ -53,7 +53,6 @@ const dynamicReadOnlyRanges = (ranges) => {
 };
 
 export const Editor = (props) => {
-  console.log('EditorProps', props);
   const editor = useRef();
   const editor2 = useRef();
   const [code, setCode] = useState('');
@@ -212,7 +211,7 @@ export const Editor = (props) => {
 
   const fetchData = () => {
     axios
-      .post('/api/jestTests/jest3', {
+      .post('/api/evaluateTest', {
         code,
       })
       .then((res) => {
