@@ -165,7 +165,8 @@ export const Editor = (props) => {
     });
 
     const state = EditorState.create({
-      doc: templateTest,
+      // TODOLATER: change this to templateTest
+      doc: currentPrompt.solution,
 
       extensions: [
         basicSetup,
@@ -205,12 +206,13 @@ export const Editor = (props) => {
         orderNum,
       })
       .then((res) => {
-        setResponse(res.data);
-        if (
-          res.data.includes('That looks right! Go ahead and submit your test!')
-        ) {
-          setPassedTest('true');
-        }
+        console.log(res);
+        // setResponse(res.data);
+        // if (
+        //   res.data.includes('That looks right! Go ahead and submit your test!')
+        // ) {
+        //   setPassedTest('true');
+        // }
       });
   };
 
