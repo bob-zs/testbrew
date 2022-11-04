@@ -24,17 +24,19 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/jest' exact component={DeprecatedPaginatedTests} />
-            {/* TODO: change this to a better route name */}
-            <Route path='/dynamic/:promptNum' exact component={Pagination} />
-            {/* <Route path='/dynamic/:promptIndex' component={Pagination} /> */}
+            <Route
+              path='/deprecatedJest'
+              exact
+              component={DeprecatedPaginatedTests}
+            />
+            <Route path='/jest/:promptNum' exact component={Pagination} />
           </Switch>
         ) : (
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route path='/jest' exact component={DeprecatedPaginatedTests} />
+            <Route path='/jest' exact component={Pagination} />
           </Switch>
         )}
       </div>

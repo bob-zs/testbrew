@@ -24,7 +24,7 @@ const PaginationRow = ({ currentPromptNum, prompts }) => {
     <div
       className='flex max-h-[7vh] items-center justify-center gap-4 p-8'
       style={{}}>
-      <Link to={`/dynamic/${currentPromptNum - 1}`}>
+      <Link to={`/jest/${currentPromptNum - 1}`}>
         <button
           disabled={currentPromptNum <= 1}
           className='group mr-4 flex items-center gap-3 text-lime-400 hover:text-lime-600  disabled:text-slate-700'>
@@ -39,7 +39,7 @@ const PaginationRow = ({ currentPromptNum, prompts }) => {
           currentPromptNum,
         );
         return (
-          <Link key={promptNum} to={`/dynamic/${promptNum}`}>
+          <Link key={promptNum} to={`/jest/${promptNum}`}>
             <span
               className={`${isCurrentStyle} flex h-8 w-8 cursor-pointer items-center justify-center self-center rounded-lg transition-all hover:bg-slate-600`}>
               {`  ${promptNum}  `}
@@ -47,7 +47,7 @@ const PaginationRow = ({ currentPromptNum, prompts }) => {
           </Link>
         );
       })}
-      <Link to={`/dynamic/${currentPromptNum + 1}`}>
+      <Link to={`/jest/${currentPromptNum + 1}`}>
         <button
           disabled={currentPromptNum === prompts.length}
           className='group ml-4 flex items-center gap-3 text-lg text-lime-400 transition-all hover:text-lime-600  disabled:text-slate-700'>
