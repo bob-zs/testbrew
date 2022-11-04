@@ -163,7 +163,6 @@ export const Editor = (props) => {
       provide: (f) => EditorView.decorations.from(f),
     });
 
-    turnOffCtrlS();
     const state = EditorState.create({
       doc: templateTest,
 
