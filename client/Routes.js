@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 
@@ -21,24 +21,22 @@ class Routes extends Component {
 
     return (
       <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route
-              path='/deprecatedJest'
-              exact
-              component={DeprecatedPaginatedTests}
-            />
-            <Route path='/jest/:promptNum' exact component={Pagination} />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/login' component={Login} />
-            <Route path='/signup' component={Signup} />
-            <Route path='/jest/:promptNum' exact component={Pagination} />
-          </Switch>
-        )}
+        <Switch>
+          {!isLoggedIn && (
+            <Switch>
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/signup' component={Signup} />
+            </Switch>
+          )}
+          <Route exact path='/' component={Home} />
+          <Route exact path='/jest/:promptNum' component={Pagination} />
+          <Redirect exact from='/jest' to='/jest/1' />
+          <Route
+            exact
+            path='/dseprecatedJest'
+            component={DeprecatedPaginatedTests}
+          />
+        </Switch>
       </div>
     );
   }
