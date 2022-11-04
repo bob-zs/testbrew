@@ -165,8 +165,7 @@ export const Editor = (props) => {
     });
 
     const state = EditorState.create({
-      // TODOLATER: change this to templateTest
-      doc: currentPrompt.solution,
+      doc: templateTest,
 
       extensions: [
         basicSetup,
@@ -220,22 +219,23 @@ export const Editor = (props) => {
   };
 
   const runTest = () => {
-    if (passedTest === 'true') {
-      setId(uuidv4());
-      axios
-        .post('/api/submitTest', {
-          code,
-          id,
-          passedTest,
-          jsCode,
-        })
-        .then((res) => {
-          setPassedTest('false');
-          setResponse(res.data);
-        });
-    } else {
+    if (passedTest !== 'true') {
       setResponse('Get the test to pass before you submit!');
+      return;
     }
+
+    setId(uuidv4());
+    axios
+      .post('/api/submitTest', {
+        code,
+        id,
+        passedTest,
+        jsCode,
+      })
+      .then((res) => {
+        setPassedTest('false');
+        setResponse(res.data);
+      });
   };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
