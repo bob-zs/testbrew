@@ -66,6 +66,7 @@ export const Editor = (props) => {
   const jsCode = currentPrompt.jsCode;
   const readOnlyRangesProp = currentPrompt.readOnlyRanges;
   const strikeMarkRanges = currentPrompt.strikeMarkRanges;
+  const orderNum = currentPrompt.orderNum;
 
   const completions = [
     { label: 'toBe', type: 'keyword' },
@@ -201,6 +202,7 @@ export const Editor = (props) => {
     axios
       .post('/api/evaluateTest', {
         code,
+        orderNum,
       })
       .then((res) => {
         setResponse(res.data);
