@@ -36,7 +36,7 @@ class Routes extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route path='/jest' exact component={Pagination} />
+            <Route path='/jest/:promptNum' exact component={Pagination} />
           </Switch>
         )}
       </div>
