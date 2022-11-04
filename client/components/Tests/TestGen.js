@@ -206,13 +206,12 @@ export const Editor = (props) => {
         orderNum,
       })
       .then((res) => {
-        console.log(res);
-        // setResponse(res.data);
-        // if (
-        //   res.data.includes('That looks right! Go ahead and submit your test!')
-        // ) {
-        //   setPassedTest('true');
-        // }
+        setResponse(res.data);
+        if (
+          res.data.includes('That looks right! Go ahead and submit your test!')
+        ) {
+          setPassedTest('true');
+        }
       });
   };
 
