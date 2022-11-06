@@ -33,7 +33,7 @@ class Routes extends Component {
           <Redirect exact from='/jest' to='/jest/1' />
           <Route
             exact
-            path='/dseprecatedJest'
+            path='/deprecatedJest'
             component={DeprecatedPaginatedTests}
           />
         </Switch>
