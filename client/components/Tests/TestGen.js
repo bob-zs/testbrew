@@ -51,11 +51,29 @@ const dynamicReadOnlyRanges = (ranges) => {
   };
 };
 
+function myCompletions(context) {
+  const completions = [
+    { label: 'toBe', type: 'keyword' },
+    { label: 'expect', type: 'keyword' },
+    { label: 'test', type: 'keyWord' },
+    { label: 'describe', type: 'keyword' },
+    { label: 'toEqual', type: 'keyWord' },
+    { label: 'not', type: 'keyWord' },
+  ];
+
+  let before = context.matchBefore(/\w+/);
+  if (!context.explicit && !before) return null;
+  return {
+    from: before ? before.from : context.pos,
+    options: completions,
+    validFor: /^\w*$/,
+  };
+}
+
 export const Editor = (props) => {
   const editor = useRef();
   const instrEditor = useRef();
   const [code, setCode] = useState('');
-  const [code2, setCode2] = useState('');
   const [id, setId] = useState(uuidv4());
   const [passedTest, setPassedTest] = useState('false');
   const [response, setResponse] = useState('See your results here!');
@@ -68,32 +86,9 @@ export const Editor = (props) => {
   const strikeMarkRanges = currentPrompt.strikeMarkRanges;
   const orderNum = currentPrompt.orderNum;
 
-  const completions = [
-    { label: 'toBe', type: 'keyword' },
-    { label: 'expect', type: 'keyword' },
-    { label: 'test', type: 'keyWord' },
-    { label: 'describe', type: 'keyword' },
-    { label: 'toEqual', type: 'keyWord' },
-    { label: 'not', type: 'keyWord' },
-  ];
-
-  function myCompletions(context) {
-    let before = context.matchBefore(/\w+/);
-    if (!context.explicit && !before) return null;
-    return {
-      from: before ? before.from : context.pos,
-      options: completions,
-      validFor: /^\w*$/,
-    };
-  }
-
   // Instructions editor
 
-  const onUpdate2 = EditorView.updateListener.of((v) => {
-    setCode2(v.state.doc.toString());
-  });
-
-  const getReadOnlyRanges2 = (instrEditor) => {
+  const getInstrReadOnlyRanges = (instrEditor) => {
     return [
       {
         from: undefined,
@@ -114,26 +109,24 @@ export const Editor = (props) => {
     turnOffCtrlS();
 
     const state = EditorState.create({
-      doc: narrative || code2,
+      doc: narrative,
       extensions: [
+        EditorView.lineWrapping,
+        baseTheme,
         basicSetup,
         oneDark,
-        baseTheme,
-        onUpdate2,
-        javascript(),
-        EditorView.lineWrapping,
-        readOnlyRangesExtension(getReadOnlyRanges2),
+        readOnlyRangesExtension(getInstrReadOnlyRanges),
       ],
     });
 
-    const view2 = new EditorView({
+    const view = new EditorView({
       state,
       parent: instrEditor.current,
       lineWrapping: true,
     });
 
     return () => {
-      view2.destroy();
+      view.destroy();
     };
   }, [narrative]);
 
