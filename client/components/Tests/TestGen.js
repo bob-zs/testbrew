@@ -278,7 +278,9 @@ export const Editor = (props) => {
         <div>
           <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
             <h2 className='text-2xl'>Solution Code</h2>
-            <CloseIcon onClick={closeModal} />
+            <button onClick={closeModal}>
+              <CloseIcon />
+            </button>
           </div>
           <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
             {currentPrompt.solution}
@@ -302,7 +304,9 @@ export const Editor = (props) => {
             <h2 className='text-2xl'>
               JavaScript Code Your Unit Test Will Run Against
             </h2>
-            <CloseIcon onClick={closeModal} />
+            <button onClick={closeModal}>
+              <CloseIcon />
+            </button>
           </div>
           <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
             {jsCode}
