@@ -53,7 +53,7 @@ const dynamicReadOnlyRanges = (ranges) => {
 
 export const Editor = (props) => {
   const editor = useRef();
-  const editor2 = useRef();
+  const instrEditor = useRef();
   const [code, setCode] = useState('');
   const [code2, setCode2] = useState('');
   const [id, setId] = useState(uuidv4());
@@ -93,18 +93,18 @@ export const Editor = (props) => {
     setCode2(v.state.doc.toString());
   });
 
-  const getReadOnlyRanges2 = (editor2) => {
+  const getReadOnlyRanges2 = (instrEditor) => {
     return [
       {
         from: undefined,
-        to: editor2.doc.line(0).to,
+        to: instrEditor.doc.line(0).to,
       },
       {
-        from: editor2.doc.line(1).from,
-        to: editor2.doc.line(100).to,
+        from: instrEditor.doc.line(1).from,
+        to: instrEditor.doc.line(100).to,
       },
       {
-        from: editor2.doc.line(editor2.doc.lines).from,
+        from: instrEditor.doc.line(instrEditor.doc.lines).from,
         to: undefined,
       },
     ];
@@ -128,7 +128,7 @@ export const Editor = (props) => {
 
     const view2 = new EditorView({
       state,
-      parent: editor2.current,
+      parent: instrEditor.current,
       lineWrapping: true,
     });
 
@@ -325,7 +325,7 @@ export const Editor = (props) => {
             id='instructions-editor'
             className='scrollbar overflow-y-auto bg-[#090e1a]'
             style={{ height: '100%' }}
-            ref={editor2}></div>
+            ref={instrEditor}></div>
         </div>
 
         <div id='right-column' className='relative flex h-full w-1/2 flex-col'>
