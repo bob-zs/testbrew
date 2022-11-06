@@ -33,7 +33,6 @@ async function seed() {
       orderNum: 10,
       narrative: `Welcome to Exercise #1!
 
-
 It often makes sense to write Unit Tests first and then write as much code as needed to allow the Unit Tests to pass.
 
 Doing this moves towards a practice known as Test-Driven Development (TDD).
