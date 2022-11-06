@@ -83,7 +83,7 @@ export const Editor = (props) => {
     narrative,
     orderNum,
     prompt,
-    readOnlyRangesProp,
+    readOnlyRanges,
     solution,
     strikeMarkRanges,
     templateTest,
@@ -172,7 +172,7 @@ export const Editor = (props) => {
         javascript(),
         onUpdate,
         EditorView.lineWrapping,
-        readOnlyRangesExtension(dynamicReadOnlyRanges(readOnlyRangesProp)),
+        readOnlyRangesExtension(dynamicReadOnlyRanges(readOnlyRanges)),
         autocompletion({ override: [myCompletions] }),
       ],
     });
