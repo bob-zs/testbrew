@@ -75,7 +75,7 @@ export const Editor = (props) => {
   const instrEditor = useRef();
   const [code, setCode] = useState('');
   const [id, setId] = useState(uuidv4());
-  const [hasTestPassed, setHasTestPassed] = useState('false');
+  const [hasTestPassed, setHasTestPassed] = useState(false);
   const [response, setResponse] = useState('See your results here!');
   const { currentPrompt } = props;
   const {
@@ -205,7 +205,7 @@ export const Editor = (props) => {
         if (
           res.data.includes('That looks right! Go ahead and submit your test!')
         ) {
-          setHasTestPassed('true');
+          setHasTestPassed(true);
         }
       });
   };
@@ -215,7 +215,7 @@ export const Editor = (props) => {
   };
 
   const runTest = () => {
-    if (hasTestPassed !== 'true') {
+    if (hasTestPassed !== true) {
       setResponse('Get the test to pass before you submit!');
       return;
     }
@@ -229,7 +229,7 @@ export const Editor = (props) => {
         jsCode,
       })
       .then((res) => {
-        setHasTestPassed('false');
+        setHasTestPassed(false);
         setResponse(res.data);
       });
   };

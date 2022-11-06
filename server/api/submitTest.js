@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
   const jsCode = findJsCode.dataValues.jsCode;
 
-  if (req.body.passedTest === 'true') {
+  if (req.body.hasTestPassed === true) {
     req.body.id = req.body.id + '.test.js';
     fs.writeFile(
       './testFiles/' + req.body.id,
