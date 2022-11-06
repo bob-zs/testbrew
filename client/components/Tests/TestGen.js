@@ -78,13 +78,16 @@ export const Editor = (props) => {
   const [passedTest, setPassedTest] = useState('false');
   const [response, setResponse] = useState('See your results here!');
   const { currentPrompt } = props;
-
-  const templateTest = currentPrompt.templateTest;
-  const narrative = currentPrompt.narrative;
-  const jsCode = currentPrompt.jsCode;
-  const readOnlyRangesProp = currentPrompt.readOnlyRanges;
-  const strikeMarkRanges = currentPrompt.strikeMarkRanges;
-  const orderNum = currentPrompt.orderNum;
+  const {
+    jsCode,
+    narrative,
+    orderNum,
+    prompt,
+    readOnlyRangesProp,
+    solution,
+    strikeMarkRanges,
+    templateTest,
+  } = currentPrompt;
 
   // Instructions editor
 
@@ -276,7 +279,7 @@ export const Editor = (props) => {
             </button>
           </div>
           <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {currentPrompt.solution}
+            {solution}
           </div>
         </div>
       </Modal>
@@ -332,9 +335,7 @@ export const Editor = (props) => {
             <div
               id='prompt'
               className='scrollbar grow overflow-y-auto bg-slate-900 px-8 py-4 text-lg text-slate-200'>
-              <div className='max-w-[800px] leading-7'>
-                {currentPrompt.prompt}
-              </div>
+              <div className='max-w-[800px] leading-7'>{prompt}</div>
             </div>
           </div>
           <div
