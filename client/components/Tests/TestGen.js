@@ -75,7 +75,7 @@ export const Editor = (props) => {
   const instrEditor = useRef();
   const [code, setCode] = useState('');
   const [id, setId] = useState(uuidv4());
-  const [passedTest, setPassedTest] = useState('false');
+  const [hasTestPassed, setHasTestPassed] = useState('false');
   const [response, setResponse] = useState('See your results here!');
   const { currentPrompt } = props;
   const {
@@ -205,7 +205,7 @@ export const Editor = (props) => {
         if (
           res.data.includes('That looks right! Go ahead and submit your test!')
         ) {
-          setPassedTest('true');
+          setHasTestPassed('true');
         }
       });
   };
@@ -215,7 +215,7 @@ export const Editor = (props) => {
   };
 
   const runTest = () => {
-    if (passedTest !== 'true') {
+    if (hasTestPassed !== 'true') {
       setResponse('Get the test to pass before you submit!');
       return;
     }
@@ -225,24 +225,24 @@ export const Editor = (props) => {
       .post('/api/submitTest', {
         code,
         id,
-        passedTest,
+        hasTestPassed,
         jsCode,
       })
       .then((res) => {
-        setPassedTest('false');
+        setHasTestPassed('false');
         setResponse(res.data);
       });
   };
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [jsModalIsOpen, jsIsOpen] = React.useState(false);
+  const [isSolutionShown, setIsSolutionShown] = React.useState(false);
+  const [isCodeShown, setIsCodeShown] = React.useState(false);
 
   function openSolutionModal() {
-    setIsOpen(true);
+    setIsSolutionShown(true);
   }
 
   function openJSCodeModal() {
-    jsIsOpen(true);
+    setIsCodeShown(true);
   }
 
   function afterOpenModal() {
@@ -251,8 +251,8 @@ export const Editor = (props) => {
   }
 
   function closeModal() {
-    setIsOpen(false);
-    jsIsOpen(false);
+    setIsSolutionShown(false);
+    setIsCodeShown(false);
   }
 
   Modal.setAppElement('#app');
@@ -260,7 +260,7 @@ export const Editor = (props) => {
   return (
     <div className='flex h-[93vh] max-h-[93vh] w-full grow flex-col overflow-hidden bg-slate-900'>
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={isSolutionShown}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={{
@@ -284,7 +284,7 @@ export const Editor = (props) => {
         </div>
       </Modal>
       <Modal
-        isOpen={jsModalIsOpen}
+        isOpen={isCodeShown}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={{
