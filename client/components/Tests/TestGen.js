@@ -69,12 +69,14 @@ function myCompletions(context) {
   };
 }
 
+const defaultResponse = 'See your results here!';
+
 export const Editor = (props) => {
   const editorRef = useRef();
   const instrEditorRef = useRef();
   const [code, setCode] = useState('');
   const [hasTestPassed, setHasTestPassed] = useState(false);
-  const [response, setResponse] = useState('See your results here!');
+  const [response, setResponse] = useState(defaultResponse);
   const { currentPrompt } = props;
   const {
     jsCode,
@@ -107,6 +109,7 @@ export const Editor = (props) => {
   };
 
   useEffect(() => {
+    setResponse(defaultResponse);
     turnOffCtrlS();
 
     const state = EditorState.create({
