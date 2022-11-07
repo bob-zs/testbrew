@@ -40,11 +40,11 @@ let baseTheme = EditorView.theme({
 });
 
 const dynamicReadOnlyRanges = (ranges) => {
-  return (editor) => {
+  return (editorRef) => {
     const theRanges = ranges.map((range) => {
       return {
-        from: editor.doc.line(range.from).from,
-        to: editor.doc.line(range.to).to,
+        from: editorRef.doc.line(range.from).from,
+        to: editorRef.doc.line(range.to).to,
       };
     });
 
@@ -72,8 +72,8 @@ function myCompletions(context) {
 }
 
 export const Editor = (props) => {
-  const editor = useRef();
-  const instrEditor = useRef();
+  const editorRef = useRef();
+  const instrEditorRef = useRef();
   const [code, setCode] = useState('');
   const [id, setId] = useState(uuidv4());
   const [hasTestPassed, setHasTestPassed] = useState(false);
@@ -92,18 +92,18 @@ export const Editor = (props) => {
 
   // Instructions editor
 
-  const getInstrReadOnlyRanges = (instrEditor) => {
+  const getInstrReadOnlyRanges = (instrEditorRef) => {
     return [
       {
         from: undefined,
-        to: instrEditor.doc.line(0).to,
+        to: instrEditorRef.doc.line(0).to,
       },
       {
-        from: instrEditor.doc.line(1).from,
-        to: instrEditor.doc.line(100).to,
+        from: instrEditorRef.doc.line(1).from,
+        to: instrEditorRef.doc.line(100).to,
       },
       {
-        from: instrEditor.doc.line(instrEditor.doc.lines).from,
+        from: instrEditorRef.doc.line(instrEditorRef.doc.lines).from,
         to: undefined,
       },
     ];
@@ -125,7 +125,7 @@ export const Editor = (props) => {
 
     const view = new EditorView({
       state,
-      parent: instrEditor.current,
+      parent: instrEditorRef.current,
       lineWrapping: true,
     });
 
@@ -148,14 +148,19 @@ export const Editor = (props) => {
       create() {
         return Decoration.none;
       },
-      update(value, tr) {
-        value = value.map(tr.changes);
-        for (let effect of tr.effects) {
-          if (effect.is(addMarks))
+      update(value, transaction) {
+        value = value.map(transaction.changes);
+        transaction.effects.map((effect) => {
+          const willAddMarks = effect.is(addMarks);
+          const willFilterMarks = effect.is(filterMarks);
+
+          if (willAddMarks) {
             value = value.update({ add: effect.value, sort: true });
-          else if (effect.is(filterMarks))
+          } else if (willFilterMarks) {
             value = value.update({ filter: effect.value });
-        }
+          }
+        });
+
         return value;
       },
       provide: (f) => EditorView.decorations.from(f),
@@ -178,7 +183,7 @@ export const Editor = (props) => {
       ],
     });
 
-    const view = new EditorView({ state, parent: editor.current });
+    const view = new EditorView({ state, parent: editorRef.current });
     const strikeMark = Decoration.mark({
       attributes: { style: 'background: #3730a3' },
     });
@@ -264,7 +269,7 @@ export const Editor = (props) => {
             id='instructions-editor'
             className='scrollbar overflow-y-auto bg-[#090e1a]'
             style={{ height: '100%' }}
-            ref={instrEditor}></div>
+            ref={instrEditorRef}></div>
         </div>
 
         <div id='right-column' className='relative flex h-full w-1/2 flex-col'>
@@ -292,7 +297,7 @@ export const Editor = (props) => {
             <div
               id='your-editor'
               className='scrollbar h-full grow overflow-y-auto overflow-x-hidden bg-[#090e1a]'
-              ref={editor}></div>
+              ref={editorRef}></div>
           </div>
           <div
             id='button-container'
