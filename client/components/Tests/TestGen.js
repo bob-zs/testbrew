@@ -11,7 +11,6 @@ import readOnlyRangesExtension from 'codemirror-readonly-ranges';
 import axios from 'axios';
 import { autocompletion } from '@codemirror/autocomplete';
 import { connect } from 'react-redux';
-const { v4: uuidv4 } = require('uuid');
 import JSCodeModal from '../JSCodeModal';
 import SolutionModal from '../SolutionModal';
 import {
@@ -74,7 +73,6 @@ export const Editor = (props) => {
   const editorRef = useRef();
   const instrEditorRef = useRef();
   const [code, setCode] = useState('');
-  const [id, setId] = useState(uuidv4());
   const [hasTestPassed, setHasTestPassed] = useState(false);
   const [response, setResponse] = useState('See your results here!');
   const { currentPrompt } = props;
@@ -225,11 +223,9 @@ export const Editor = (props) => {
       return;
     }
 
-    setId(uuidv4());
     axios
       .post('/api/submitTest', {
         code,
-        id,
         hasTestPassed,
         jsCode,
       })

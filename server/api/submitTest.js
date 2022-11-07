@@ -1,5 +1,6 @@
 const fs = require('fs');
 const router = require('express').Router();
+const { v4: uuidv4 } = require('uuid');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const {
@@ -19,7 +20,7 @@ router.post('/', async (req, res) => {
   const hasDeprecatedTestPassed = req.body.passedTest === 'true';
 
   if (req.body.hasTestPassed === true || hasDeprecatedTestPassed) {
-    const testFileName = req.body.id + '.test.js';
+    const testFileName = uuidv4() + '.test.js';
 
     const filePath = `./testFiles/${testFileName}`;
     const jsCodeWithUserCode = `${jsCode}\n\n${req.body.code}`;
