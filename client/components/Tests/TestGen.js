@@ -238,31 +238,18 @@ export const Editor = (props) => {
   const [isSolutionShown, setIsSolutionShown] = React.useState(false);
   const [isCodeShown, setIsCodeShown] = React.useState(false);
 
-  function openSolutionModal() {
-    setIsSolutionShown(true);
-  }
-
-  function openJSCodeModal() {
-    setIsCodeShown(true);
-  }
-
-  function closeModal() {
-    setIsSolutionShown(false);
-    setIsCodeShown(false);
-  }
-
   Modal.setAppElement('#app');
 
   return (
     <div className='flex h-[93vh] max-h-[93vh] w-full grow flex-col overflow-hidden bg-slate-900'>
       <SolutionModal
         isSolutionShown={isSolutionShown}
-        closeModal={closeModal}
+        closeModal={() => setIsSolutionShown(false)}
         solution={solution}
       />
       <JSCodeModal
         isCodeShown={isCodeShown}
-        closeModal={closeModal}
+        closeModal={() => setIsCodeShown(false)}
         jsCode={jsCode}
       />
       <div className='flex h-3/4 w-full'>
@@ -322,12 +309,12 @@ export const Editor = (props) => {
             </button>
             <button
               className='self-center rounded-lg border border-lime-400 px-4 py-2 text-sm text-lime-400 transition-all hover:bg-lime-400/10 2xl:text-base'
-              onClick={openSolutionModal}>
+              onClick={() => setIsSolutionShown(true)}>
               Show Solution
             </button>
             <button
               className='filled-button self-center rounded-lg bg-lime-400 px-4 py-2  text-sm text-slate-900 transition-shadow 2xl:text-base'
-              onClick={openJSCodeModal}>
+              onClick={() => setIsCodeShown(true)}>
               Show JavaScript Code
             </button>
           </div>
