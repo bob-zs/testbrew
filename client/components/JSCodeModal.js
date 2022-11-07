@@ -3,6 +3,7 @@ import { CloseIcon } from './SVG_Icons';
 import Modal from 'react-modal';
 
 const JSCodeModal = ({ isCodeShown, closeModal, jsCode }) => {
+  Modal.setAppElement('#app');
   return (
     <Modal
       isOpen={isCodeShown}

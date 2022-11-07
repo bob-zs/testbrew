@@ -3,6 +3,7 @@ import { CloseIcon } from './SVG_Icons';
 import Modal from 'react-modal';
 
 const SolutionModal = ({ isSolutionShown, closeModal, solution }) => {
+  Modal.setAppElement('#app');
   return (
     <Modal
       isOpen={isSolutionShown}

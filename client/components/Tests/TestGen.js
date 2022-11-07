@@ -12,7 +12,6 @@ import axios from 'axios';
 import { autocompletion } from '@codemirror/autocomplete';
 import { connect } from 'react-redux';
 const { v4: uuidv4 } = require('uuid');
-import Modal from 'react-modal';
 import JSCodeModal from '../JSCodeModal';
 import SolutionModal from '../SolutionModal';
 import {
@@ -242,8 +241,6 @@ export const Editor = (props) => {
 
   const [isSolutionShown, setIsSolutionShown] = React.useState(false);
   const [isCodeShown, setIsCodeShown] = React.useState(false);
-
-  Modal.setAppElement('#app');
 
   return (
     <div className='flex h-[93vh] max-h-[93vh] w-full grow flex-col overflow-hidden bg-slate-900'>
