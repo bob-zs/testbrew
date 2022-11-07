@@ -13,8 +13,9 @@ import { autocompletion } from '@codemirror/autocomplete';
 import { connect } from 'react-redux';
 const { v4: uuidv4 } = require('uuid');
 import Modal from 'react-modal';
+import JSCodeModal from '../JSCodeModal';
+import SolutionModal from '../SolutionModal';
 import {
-  CloseIcon,
   InstructionsIcon,
   PromptIcon,
   CodeEditorIcon,
@@ -245,11 +246,6 @@ export const Editor = (props) => {
     setIsCodeShown(true);
   }
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
-
   function closeModal() {
     setIsSolutionShown(false);
     setIsCodeShown(false);
@@ -259,56 +255,16 @@ export const Editor = (props) => {
 
   return (
     <div className='flex h-[93vh] max-h-[93vh] w-full grow flex-col overflow-hidden bg-slate-900'>
-      <Modal
-        isOpen={isSolutionShown}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(255,255,255,0.1',
-            backdropFilter: 'blur(8px)',
-          },
-        }}
-        contentLabel='Example Modal'
-        className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
-        <div>
-          <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
-            <h2 className='text-2xl'>Solution Code</h2>
-            <button onClick={closeModal}>
-              <CloseIcon />
-            </button>
-          </div>
-          <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {solution}
-          </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={isCodeShown}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(255,255,255,0.1',
-            backdropFilter: 'blur(8px)',
-          },
-        }}
-        contentLabel='Example Modal'
-        className='mx-auto mt-[96px] flex max-w-[60vw] flex-col overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl'>
-        <div>
-          <div className='flex justify-between border-b border-slate-700 px-8 py-5'>
-            <h2 className='text-2xl'>
-              JavaScript Code Your Unit Test Will Run Against
-            </h2>
-            <button onClick={closeModal}>
-              <CloseIcon />
-            </button>
-          </div>
-          <div className='min-h-[300px] bg-[#090e1a] p-8 font-mono text-slate-200'>
-            {jsCode}
-          </div>
-        </div>
-      </Modal>
+      <SolutionModal
+        isSolutionShown={isSolutionShown}
+        closeModal={closeModal}
+        solution={solution}
+      />
+      <JSCodeModal
+        isCodeShown={isCodeShown}
+        closeModal={closeModal}
+        jsCode={jsCode}
+      />
       <div className='flex h-3/4 w-full'>
         <div
           id='left-column'
