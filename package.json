@@ -18,8 +18,8 @@
     "prepare": "husky install",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier:check": "prettier . --check",
-    "prettier:fix": "prettier --write \"**/*.js\"",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "prettify": "npm run prettier:fix",
     "test": "jest"
   },
