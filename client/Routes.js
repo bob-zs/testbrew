@@ -22,12 +22,6 @@ class Routes extends Component {
     return (
       <div>
         <Switch>
-          {!isLoggedIn && (
-            <Switch>
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/signup' component={Signup} />
-            </Switch>
-          )}
           <Route exact path='/' component={Home} />
           <Route exact path='/jest/:promptNum' component={PaginatedTests} />
           <Redirect exact from='/jest' to='/jest/1' />
@@ -36,6 +30,12 @@ class Routes extends Component {
             path='/deprecatedJest'
             component={DeprecatedPaginatedTests}
           />
+          {!isLoggedIn && (
+            <Switch>
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/signup' component={Signup} />
+            </Switch>
+          )}
         </Switch>
       </div>
     );
