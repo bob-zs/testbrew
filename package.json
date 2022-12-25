@@ -22,7 +22,7 @@
     "prettier:fix": "prettier --write \"**/*.js\"",
     "prettify": "npm run prettier:fix",
     "test": "jest testFiles",
-    "test:ci": "jest ciTest"
+    "test:ci": "jest testCi"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
