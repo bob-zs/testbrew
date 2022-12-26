@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 import TextSection from '@/components/TextSection';
 import GridSection from '@/components/GridSection';
 
-import '@/style.css';
-/**
- * COMPONENT
- */
 export const Home = ({ isLoggedIn }) => {
   return (
     <div className='w-full'>
