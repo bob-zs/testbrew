@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { NextArrowIcon, PreviousArrowIcon } from '../SVG_Icons';
-import { fetchPrompts } from '../../store/prompts';
 import { Link } from 'react-router-dom';
-import TestExercise from './TestExercise';
+
+import { fetchPrompts } from '@/store/prompts';
+
+import { NextArrowIcon, PreviousArrowIcon } from '@/components/SVG_Icons';
+import TestExercise from '@/components/Tests/TestExercise';
 
 const Overlay = () => {
   // Overlay blocking access on screens smaller than 768px

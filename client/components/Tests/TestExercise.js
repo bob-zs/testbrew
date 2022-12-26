@@ -11,14 +11,14 @@ import { javascript } from '@codemirror/lang-javascript';
 import { oneDark } from '@codemirror/theme-one-dark';
 import readOnlyRangesExtension from 'codemirror-readonly-ranges';
 
-import JSCodeModal from '../JSCodeModal';
-import SolutionModal from '../SolutionModal';
+import JSCodeModal from '@/components/JSCodeModal';
+import SolutionModal from '@/components/SolutionModal';
 import {
   CodeEditorIcon,
   ConsoleIcon,
   InstructionsIcon,
   PromptIcon,
-} from '../SVG_Icons';
+} from '@/components/SVG_Icons';
 
 const turnOffCtrlS = () => {
   document.addEventListener('keydown', (e) => {

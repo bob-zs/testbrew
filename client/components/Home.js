@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../style.css';
 import { Link } from 'react-router-dom';
-import TextSection from './TextSection';
-import GridSection from './GridSection';
 
+import TextSection from '@/components/TextSection';
+import GridSection from '@/components/GridSection';
+
+import '@/style.css';
 /**
  * COMPONENT
  */

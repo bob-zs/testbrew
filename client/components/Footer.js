@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../store';
+import { logout } from '@/store';
 
 const Footer = ({ handleClick }) => (
   <div className='flex min-h-[30vh] w-full flex-none flex-col bg-slate-900 pt-4 pb-8'>

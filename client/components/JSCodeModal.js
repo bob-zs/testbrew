@@ -1,5 +1,5 @@
 import React from 'react';
-import { CloseIcon } from './SVG_Icons';
+import { CloseIcon } from '@/components/SVG_Icons';
 import Modal from 'react-modal';
 
 const JSCodeModal = ({ isCodeShown, closeModal, jsCode }) => {

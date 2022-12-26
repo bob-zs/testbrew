@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../style.css';
 import { Link } from 'react-router-dom';
+import '@/style.css';
 
 function TextSection({ isLoggedIn }) {
   return (

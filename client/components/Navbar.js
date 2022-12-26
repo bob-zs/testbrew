@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { logout } from '../store';
+import { logout } from '@/store';
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   const location = useLocation();
