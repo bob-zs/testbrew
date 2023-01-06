@@ -15,7 +15,6 @@
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client --ignore testFiles",
-    "prepare": "husky install",
     "lint:check": "eslint \"**/*.js\"",
     "lint:fix": "eslint --fix \"**/*.js\"",
     "prettier:check": "prettier --check \"**/*.js\"",

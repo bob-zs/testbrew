@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-versiion }}
       - name: npm install
-        run: npm ci
-      - name: tests
-        run: npm run test:ci
+        run: npm i
+      - name: Format check
+        run: npm run lint:check && npm run prettier:check
 
