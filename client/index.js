@@ -10,9 +10,9 @@ import './style.css';
 const container = document.getElementById('app');
 const root = createRoot(container);
 root.render(
-<Provider store={store}>
-<Router history={history}>
-  <App />
-</Router>
-</Provider>,
+  <Provider store={store}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
 );
