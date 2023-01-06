@@ -1,6 +1,6 @@
-name: Unit Tests
+name: CI Testing
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   tests:
@@ -20,4 +20,3 @@ jobs:
         run: npm i
       - name: Format check
         run: npm run lint:check && npm run prettier:check
-
