@@ -15,13 +15,13 @@
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client --ignore testFiles",
-    "prepare": "husky install",
-    "lint:check": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prettier:check": "prettier . --check",
+    "lint:check": "eslint \"**/*.js\"",
+    "lint:fix": "eslint --fix \"**/*.js\"",
+    "prettier:check": "prettier --check \"**/*.js\"",
     "prettier:fix": "prettier --write \"**/*.js\"",
     "prettify": "npm run prettier:fix",
-    "test": "jest"
+    "test": "jest testFiles",
+    "test:ci": "jest ciTest"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
@@ -63,8 +63,6 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-tailwindcss": "^3.6.2",
     "file-loader": "^6.2.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
     "nodemon": "^2.0.19",
     "postcss": "^8.4.16",
     "postcss-cli": "^10.0.0",
@@ -80,12 +78,6 @@
     "tailwindcss": "^3.1.8",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "npm run lint:fix",
-      "npm run prettier:fix"
-    ]
   },
   "repository": {
     "type": "git",
